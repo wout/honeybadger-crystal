@@ -35,7 +35,6 @@ module Honeybadger
       @explicit_context = Context.new
     end
 
-
     # A basic request object contains just a context object.
     # Override this to embed actual request details.
     def request_json(builder)
@@ -128,11 +127,11 @@ module Honeybadger
       if matches = STACK_FRAME.match(frame)
         builder.field "file", matches["path"]
         builder.field "method", matches["method"]
-        builder.field "number", matches["line"].to_i
+        builder.field "number", matches["line"].to_i64
       else
         builder.field "file", frame
         builder.field "method", "**unknown**"
-        builder.field "number", 0
+        builder.field "number", 0i64
       end
     end
 
